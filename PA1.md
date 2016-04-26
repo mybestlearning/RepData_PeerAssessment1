@@ -57,17 +57,32 @@ fileurl<-"https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
 ```
 
 ```r
-    head(activity)
+    head(activity,10)
 ```
 
 ```
-##   steps       date interval
-## 1    NA 2012-10-01        0
-## 2    NA 2012-10-01        5
-## 3    NA 2012-10-01       10
-## 4    NA 2012-10-01       15
-## 5    NA 2012-10-01       20
-## 6    NA 2012-10-01       25
+##    steps       date interval
+## 1     NA 2012-10-01        0
+## 2     NA 2012-10-01        5
+## 3     NA 2012-10-01       10
+## 4     NA 2012-10-01       15
+## 5     NA 2012-10-01       20
+## 6     NA 2012-10-01       25
+## 7     NA 2012-10-01       30
+## 8     NA 2012-10-01       35
+## 9     NA 2012-10-01       40
+## 10    NA 2012-10-01       45
+```
+
+```r
+str(activity)
+```
+
+```
+## 'data.frame':	17568 obs. of  3 variables:
+##  $ steps   : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ date    : chr  "2012-10-01" "2012-10-01" "2012-10-01" "2012-10-01" ...
+##  $ interval: int  0 5 10 15 20 25 30 35 40 45 ...
 ```
 
     # unzip all of the files in the downloaded .zip file into the current working directory
@@ -202,7 +217,7 @@ median_stepsperday
 ```
 ## [1] 10765
 ```
-Average steps taken per day are `mean_stepsperday` and `median_stepsperday` median steps per day are 10765.
+Average steps taken per day are 1.0766189\times 10^{4} and median steps per day are 'r median_stepsperday` .
    
 ## What is the average daily activity pattern? 
 
@@ -226,17 +241,17 @@ ggplot(interval, aes(x=interval, y=avgsteps)) +
 
 ```r
 maxnumsteps<-interval[which.max(interval$avgsteps),]
-maxnumsteps[1,1]
+maxnumsteps
 ```
 
 ```
-## Source: local data frame [1 x 1]
+## Source: local data frame [1 x 2]
 ## 
-##   interval
-##      (int)
-## 1      835
+##   interval avgsteps
+##      (int)    (dbl)
+## 1      835 206.1698
 ```
-The interval `maxnumsteps[1]` has, on average, the highest count of steps, with `maxnumsteps[2]` steps.
+The interval 835 has, on average, the highest count of steps, with 206.1698113 steps.
    
    
 ## Imputing missing values
@@ -254,7 +269,7 @@ Make a histogram of the total number of steps taken each day and Calculate and r
    missing<-sum(is.na(activity$steps))
 ```
  
- Missing values are `missing`.
+ Missing values are 2304.
  
  
 ### Filling in all of the missing values in the dataset  
@@ -339,7 +354,7 @@ median_stepsperday_newset
 ## [1] 10766.19
 ```
 
-When imputing missing data with the average number of steps in the same 5-min interval, both the mean and the median have the same value,`mean_stepsperday_newset`.
+When imputing missing data with the average number of steps in the same 5-min interval, both the mean and the median have the same value,1.0766189\times 10^{4}.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 

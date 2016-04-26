@@ -2,9 +2,11 @@
 title: "Reproducible Research Course Project 1"
 author: "Best learning"
 date: "April 24, 2016"
+
 output:
   html_document:
     keep_md: true
+
 ---
 
 ```{r setup, include=FALSE}
@@ -46,8 +48,8 @@ fileurl<-"https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
     myfile <-unzip("./data/activity",exdir ="./data")
     activity<-read.csv(myfile,sep=",",head=TRUE,colClasses = c("numeric", "character",                                                                         "integer"))
     summary(activity)
-    head(activity)
-
+    head(activity,10)
+str(activity)
     
 ```
 
@@ -106,7 +108,7 @@ median_stepsperday <- median(totalstepsperday$dailysteps,na.rm = TRUE)
  mean_stepsperday
 median_stepsperday
 ```
-Average steps taken per day are `mean_stepsperday` and `median_stepsperday` median steps per day are 10765.
+Average steps taken per day are `r mean_stepsperday` and median steps per day are 'r median_stepsperday` .
    
 ## What is the average daily activity pattern? 
 
@@ -127,10 +129,10 @@ ggplot(interval, aes(x=interval, y=avgsteps)) +
 ```{r}
 
 maxnumsteps<-interval[which.max(interval$avgsteps),]
-maxnumsteps[1,1]
+maxnumsteps
 
 ```
-The interval `maxnumsteps[1]` has, on average, the highest count of steps, with `maxnumsteps[2]` steps.
+The interval `r maxnumsteps[1]` has, on average, the highest count of steps, with `r maxnumsteps[2]` steps.
    
    
 ## Imputing missing values
@@ -147,7 +149,7 @@ Make a histogram of the total number of steps taken each day and Calculate and r
    missing<-sum(is.na(activity$steps))
 ```
  
- Missing values are `missing`.
+ Missing values are `r missing`.
  
  
 ### Filling in all of the missing values in the dataset  
@@ -196,7 +198,7 @@ median_stepsperday_newset <- median(stepsperday_newset$dailysteps_newset,na.rm =
 median_stepsperday_newset
 ```
 
-When imputing missing data with the average number of steps in the same 5-min interval, both the mean and the median have the same value,`mean_stepsperday_newset`.
+When imputing missing data with the average number of steps in the same 5-min interval, both the mean and the median have the same value,`r mean_stepsperday_newset`.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
